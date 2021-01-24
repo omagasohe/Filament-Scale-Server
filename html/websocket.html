@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+
+<html>
+   <head>
+      
+      <script type = "text/javascript">
+         function precise(x) {
+            return Number.parseFloat(x).toPrecision(4);
+         }
+         getWeight()
+         function getWeight() {
+            
+            if ("WebSocket" in window) {
+
+               // Let us open a web socket
+               var ws = new WebSocket("ws://192.168.0.184:8765/");
+
+               ws.onmessage = function (evt) { 
+                  w = evt.data - 231
+                  document.getElementById("weight").textContent = precise(w)
+                  document.getElementById("length").textContent = precise(w/(2.982)) 
+               };
+				
+            } else {
+              
+               // The browser doesn't support WebSocket
+               alert("WebSocket NOT supported by your Browser!");
+            }
+         }
+         function setTare() {
+            if ("WebSocket" in window) {
+
+                // Let us open a web socket
+                var ws = new WebSocket("ws://192.168.0.184:8765/tare");
+
+                ws.onmessage = function (evt) { 
+                    alert(evt.data)
+                };
+                
+                }
+         }
+      </script>
+		
+   </head>
+   
+   <body>
+      <p>Current Weight is: <span id="weight"></span> grams
+         for PLA that is <span id="length"></span> meters</p>
+
+      <span id="tare"><p><a href="javascript:setTare()">Zero Scale</a> </p></span>
+   </body>
+</html>

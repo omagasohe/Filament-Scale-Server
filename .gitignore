@@ -1,2 +1,2 @@
-application/cache/*
-application/logs/*
+html/jquery/*.js
+html/jquery/*.css
